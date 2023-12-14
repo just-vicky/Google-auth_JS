@@ -1,4 +1,31 @@
-let emailList = ['vikramauroville2000@gmail.com', 'anotherauthorized@example.com'];
+//Function to encrypt emails
+// function encryptEmail(email) {
+//     // Use Base64 encoding for simplicity (not secure for sensitive data)
+//     const encryptedEmail = btoa(email);
+//     return encryptedEmail;
+//   }
+  
+//   const emailList = ['vikramauroville2000@gmail.com', 'anotherauthorized@example.com'];
+  
+//   const encryptedEmailList = emailList.map(email => encryptEmail(email));
+  
+//   console.log(encryptedEmailList);
+  
+
+const enclist = ["dmlrcmFtYXVyb3ZpbGxlMjAwMEBnbWFpbC5jb20=", "YW5vdGhlcmF1dGhvcml6ZWRAZXhhbXBsZS5jb20="];
+
+function decryptEmail(encryptedEmail) {
+    // Use Base64 decoding for simplicity (not secure for sensitive data)
+    const decryptedEmail = atob(encryptedEmail);
+    return decryptedEmail;
+  }
+  
+ 
+  const decryptedEmailList = enclist.map(encryptedEmail => decryptEmail(encryptedEmail));
+  
+  console.log(decryptedEmailList);
+  
+
 
 function signInWithGoogle() {
     let clientId = '694571191095-vabs5hp6qsui4rmc8ook40u3rku8r7he.apps.googleusercontent.com';
@@ -15,7 +42,8 @@ function signInWithGoogle() {
 }
 
 function checkAuthorizedEmail(email) {
-    return emailList.includes(email);
+    // Use the decrypted email list for authorization
+    return decryptedEmailList.includes(email);
 }
 
 function handleSignIn() {
@@ -23,7 +51,7 @@ function handleSignIn() {
         .split('&')[0]
         .split('=')[1];
 
-    console.log(accessToken)
+    console.log(accessToken )
 
     // Fetch user info using the access token
     fetch('https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + accessToken)
@@ -43,7 +71,7 @@ function handleSignIn() {
             alert("Encoded Email: " + encodedEmail);
 
             if (checkAuthorizedEmail(encodedEmail)) {
-                // User is authorized, remove overlay and display content
+                // Useconst enclist = ["dmlrcmFtYXVyb3ZpbGxlMjAwMEBnbWFpbC5jb20=", "YW5vdGhlcmF1dGhvcml6ZWRAZXhhbXBsZS5jb20="];r is authorized, remove overlay and display content
                 document.getElementById('overlay').style.display = 'none';
                 document.getElementById('content').style.display = 'block';
                 alert("User has been authorized");
